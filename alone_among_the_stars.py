@@ -13,6 +13,9 @@ class Card:
     suit: str
     rank: str
 
+    def __str__(self):
+        return f"{self.rank} of {self.suit}."
+
 
 class Deck:
     ranks = [str(k) for k in range(2, 11)] + "J Q K A".split()
@@ -58,15 +61,15 @@ prompts_ranks = {
 }
 
 prompts_suits = {
-    "Diamonds": """Diamonds are living beings: People like or unlike you, fish,
+    "Diamonds": """Living beings: People like or unlike you, fish,
 dinosaurs, wolves, birds, giant insects, etc.""",
-    "Clubs": """Clubs are plants and other immobile forms of life: Towering
+    "Clubs": """Plants and other immobile forms of life: Towering
 trees, carnivorous pitchers, giant ferns, glowing weeds,
 floating flowers, oozing mushrooms, etc.""",
-    "Hearts": """Hearts are ruins: Mysterious obelisks, vine-covered temples,
+    "Hearts": """Ruins: Mysterious obelisks, vine-covered temples,
 abandoned dwellings for people bigger than you, a wrecked
 spaceship, etc.""",
-    "Spades": """Spades are natural phenomena: Huge crystal formations,
+    "Spades": """Natural phenomenon: Huge crystal formations,
 mirages, vividly colored lightning, strange clouds, rocks
 eroded in strange shapes, veins of precious metals, etc.""",
 }
@@ -79,12 +82,11 @@ prompts_circumstances = [
 
 
 def get_prompt(card):
-    print(card)
     discovery_type = prompts_suits.get(card.suit)
     discovery_location = prompts_ranks.get(card.rank)
     discovery_circumstances = prompts_circumstances[roll() % 3]
 
-    output = f"\n\nYou discover something. {discovery_circumstances}\n{discovery_type}\nYou find it {discovery_location.lower()}\n\n"
+    output = f"\n## Feature\n\n>{card}\n>\n>{discovery_type}\n>\n>You find it {discovery_location.lower()}\n>\n>{discovery_circumstances}\n\n"
     with open(filename, "a") as f:
         f.write(output)
     subprocess.run([editor, filename])
