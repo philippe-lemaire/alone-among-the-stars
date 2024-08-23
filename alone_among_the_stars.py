@@ -7,6 +7,7 @@ from functions import discover_planet
 
 
 def main():
+    """Main function of the game"""
     play = True
     deck = Deck()
     # create the file in the tmp folder

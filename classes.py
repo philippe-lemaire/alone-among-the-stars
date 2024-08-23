@@ -4,6 +4,9 @@ import random
 
 @dataclass
 class Card:
+    """Card object, the __str__ method is called when inserting the card in
+    the markdown file by interpolation"""
+
     suit: str
     rank: str
 
